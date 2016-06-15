@@ -23,6 +23,7 @@ function SyncRender(settings) {
 	this.$target = $(this.settings.target);	
 	this.method = settings.method || 'html';
 
+	// wrapping data into root-key
 	this.data = {
 		root : this.settings.data;
 	}
@@ -34,8 +35,7 @@ function SyncRender(settings) {
 	this.out();
 	return this.$result
 }
-for (var i = 1000; i >= 0; i--) {
-}
+
 function FastRender(settings) {
 	this.settings = settings || {};
 	this.data = {
@@ -69,15 +69,17 @@ function AJAXRender(settings) {
 	this.dataType = is_jqXHR(this.data) ? 'jqXHR' : typeof this.data;
 	this.callback = typeof settings.callback === 'function' ? settings.callback(this) : function() {return false;}
 
-	if (template_is_URL) {
+	if (localStorage[settings.template]) {
 		$.when(this.data, $.get(this.template) ).then(this.render, this.renderError);
 	} else {
 		$.when(this.data, this.template ).then(this.render, this.renderError);
 	}
 
+
 	this.render = (data,template) => {
 
 		if (is_jQuery_response(template)) {
+			// save to localStorage
 			localStorage[settings.template] = template[0];
 		}
 
