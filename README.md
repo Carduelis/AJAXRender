@@ -1,7 +1,7 @@
 # AJAXRender
 jquery lodash localStorage Render
 
-# Disclaimer
+## Disclaimer
 If you use MVC-like frameworks, it does not help you.
 
 Use it in case some old system, CMS or non-frameworks projects. It requires jQuery, lodash (or underscore).
